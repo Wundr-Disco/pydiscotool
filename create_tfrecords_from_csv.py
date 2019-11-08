@@ -3,7 +3,6 @@ import tensorflow as tf
 import pandas as pd
 
 
-
 def create(input_csv_file, output_file_path):
     try:
         print("Reading csv file...")
