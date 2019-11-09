@@ -1,18 +1,9 @@
-import click
 import os
 import sys
 import tensorflow as tf
 import pandas as pd
 
 
-@click.group()
-def main():
-    pass
-
-
-@main.command()
-@click.argument('input_csv_file')
-@click.argument('output_file_path', required=False)
 def create_tfrecords_from_csv(input_csv_file, output_file_path):
     if output_file_path is None:
         output_file_path = os.path.splitext(input_csv_file)[0] + ".tfrecords"
@@ -52,7 +43,3 @@ def create_tfrecords_from_csv(input_csv_file, output_file_path):
         sys.exit("Input File not found.")
     except pd.errors.EmptyDataError:
         sys.exit("Invalid csv file.")
-
-
-if __name__ == '__main__':
-    main()
