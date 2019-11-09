@@ -1,9 +1,32 @@
+import click
+import os
 import sys
 import tensorflow as tf
 import pandas as pd
 
 
-def create(input_csv_file, output_file_path):
+@click.group()
+def main():
+    pass
+
+
+@main.command()
+@click.argument('input_csv_file')
+@click.argument('output_file_path', required=False)
+def create_tfrecords_from_csv(input_csv_file, output_file_path):
+    if output_file_path is None:
+        output_file_path = os.path.splitext(input_csv_file)[0] + ".tfrecords"
+    if not output_file_path.endswith(".tfrecords"):
+        output_file_path = output_file_path + ".tfrecords"
+    if not os.path.exists(output_file_path):
+        try:
+            output_file_dir = os.path.dirname(output_file_path)
+            os.makedirs(output_file_dir)
+        except OSError:
+            print("Creation of the directory %s failed" % output_file_dir)
+        else:
+            print("Successfully created the directory %s" % output_file_dir)
+
     try:
         print("Reading csv file...")
         csv = pd.read_csv(input_csv_file)
@@ -29,3 +52,7 @@ def create(input_csv_file, output_file_path):
         sys.exit("Input File not found.")
     except pd.errors.EmptyDataError:
         sys.exit("Invalid csv file.")
+
+
+if __name__ == '__main__':
+    main()

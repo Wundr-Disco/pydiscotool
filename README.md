@@ -1,6 +1,6 @@
-# tfrecords_creator
+# pydiscotools
 
-tfrecords_creator is a simple utility to help create tensorflow tfrecords files
+pydiscotools is a set of tools to support Disco
 
 | OS      | Tested             |
 | ------- | ------------------ |
